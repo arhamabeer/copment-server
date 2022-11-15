@@ -2,7 +2,6 @@ import { Schema, model } from "mongoose";
 
 const FileSchema = new Schema(
   {
-    _id: { type: String, required: true },
     author_id: { type: String, required: true },
     room_id: { type: String, required: true },
     room_number: { type: Number, required: true },
