@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
-// import router from "../router/main_router";
+import router from "../router/mainRouter";
 import { Express } from "express";
 import dotenv from "dotenv";
 
 dotenv.config();
 
-const db_uri = process.env.MDB_URI || "";
-
-console.log(db_uri)
+const db_uri =
+  process.env.MDB_URI ||
+  "mongodb+srv://abeer:F4DEA959@nodejs.x48o2hy.mongodb.net/?retryWrites=true&w=majority";
 
 export default function Config(server: Express) {
   mongoose
@@ -15,5 +15,5 @@ export default function Config(server: Express) {
     .then(() => console.log("db connected..."))
     .catch((e) => console.log("db not connected...", e));
 
-  //   server.use("/", router);
+  server.use("/", router);
 }
