@@ -19,8 +19,9 @@ const SaveFile = async (req: any, res: any) => {
 
 // FETCH
 const FecthFile = async (req: any, res: any) => {
+  console.log(req.params);
   try {
-    let response = await FileModel.find({ room_id: req.body.room_id });
+    let response = await FileModel.find({ room_id: req.params.room_id });
     res.status(200).send({ msg: "File Fetched!", result: response });
   } catch (error) {
     res.status(500).send({ msg: "Internal Server Error", error: error });

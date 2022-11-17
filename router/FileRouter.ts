@@ -11,7 +11,7 @@ router.post(
   ],
   SaveFile
 );
-router.get("/getFile", FecthFile);
+router.get("/getFile/:room_id", FecthFile);
 router.delete("/deleteFile", DeleteFile);
 
 export default router;
