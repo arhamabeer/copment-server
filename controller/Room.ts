@@ -1,6 +1,7 @@
 import { validationResult } from "express-validator";
 import RoomModel from "../model/RoomModel";
 const bcrypt = require("bcrypt");
+
 // SAVE
 const SaveRoom = async (req: any, res: any) => {
   const errors = validationResult(req);
@@ -19,11 +20,11 @@ const SaveRoom = async (req: any, res: any) => {
       } else {
         let hash_pass = await bcrypt.hash(req.body.password, 12);
         let data_obj = {
-          email: req.body.author_email,
+          author_email: req.body.author_email,
           password: hash_pass,
           _id: room_id,
         };
-        let data = new RoomModel({ data_obj });
+        let data = new RoomModel({ ...data_obj });
         let response = await data.save();
         res.status(200).send({ msg: "New Room Added!", result: response });
       }
@@ -33,4 +34,27 @@ const SaveRoom = async (req: any, res: any) => {
     }
   }
 };
-export { SaveRoom };
+
+// ENTER
+const EnterRoom = async (req: any, res: any) => {
+  try {
+    const check = await RoomModel.findOne({ _id: req.body._id });
+    if (!check) {
+      res.status(404).send({ msg: "Room Not Found" });
+    } else {
+      let hash_pass = await bcrypt.compare(req.body.password, check.password);
+      if (hash_pass) {
+        res
+          .status(200)
+          .send({ msg: "Authentication successful", result: true });
+      } else {
+        res.status(401).send({ msg: "Wrong Credentials", result: false });
+      }
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ msg: "Internal Server Error", error: error });
+  }
+};
+
+export { SaveRoom, EnterRoom };
