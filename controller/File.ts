@@ -10,20 +10,15 @@ const SaveFile = async (req: any, res: any) => {
     return res.status(400).json({ errors: errors.array() });
   } else {
     console.log(req.file, "Upload");
-    // try {
-    //   let room_id =
-    //     Math.random().toString(36).substr(2, 3) +
-    //     Math.random().toString(36).substr(2, 3) +
-    //     Math.random().toString(36).substr(2, 4);
-    //   let author_id = req.body.author_email;
-    //   let data = new FileModel({ ...req.body, author_id, room_id });
-    //   console.log({ ...req.body, author_id, room_id });
-    //   //   let response = await data.save();
-    //   //   res.status(200).send({ msg: "New File Added!", result: response });
-    // } catch (error) {
-    //   console.log(error);
-    //   res.status(500).send({ msg: "Internal Server Error", error: error });
-    // }
+    try {
+      let author_id = req.body.author_email;
+      let data = new FileModel({ ...req.body, author_id });
+      //   let response = await data.save();
+      //   res.status(200).send({ msg: "New File Added!", result: response });
+    } catch (error) {
+      console.log(error);
+      res.status(500).send({ msg: "Internal Server Error", error: error });
+    }
   }
 };
 
