@@ -1,14 +1,14 @@
 import express from "express";
-import { body, validationResult } from "express-validator";
+import { body } from "express-validator";
 import { SaveFile, FecthFile, DeleteFile } from "../controller/File";
+import upload from "../middleware/index";
+
 const router = express.Router();
 
 router.post(
   "/saveFile",
-  [
-    body("author_email", "Enter a valid email").isEmail(),
-    body("room_number", "invaid room number type").isNumeric(),
-  ],
+  upload.single("content"),
+  [body("author_email", "Enter a valid email").isEmail()],
   SaveFile
 );
 router.get("/getFile/:room_id", FecthFile);
