@@ -30,6 +30,7 @@ const SaveRoom = async (req: any, res: any) => {
       }
     } catch (error) {
       console.log(error);
+
       res.status(500).send({ msg: "Internal Server Error", error: error });
     }
   }
@@ -38,11 +39,11 @@ const SaveRoom = async (req: any, res: any) => {
 // ENTER
 const EnterRoom = async (req: any, res: any) => {
   try {
-    const check = await RoomModel.findOne({ _id: req.body._id });
+    const check = await RoomModel.findOne({ _id: req.body.room_id });
     if (!check) {
       res.status(404).send({ msg: "Room Not Found" });
     } else {
-      let hash_pass = await bcrypt.compare(req.body.password, check.password);
+      let hash_pass = await bcrypt.compare(req.body.room_code, check.password);
       if (hash_pass) {
         res
           .status(200)
