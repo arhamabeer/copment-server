@@ -26,6 +26,8 @@ server.use(cors());
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
+server.use("/uploads", express.static("uploads"));
+
 Config(server);
 
 // server.use("/", router);
