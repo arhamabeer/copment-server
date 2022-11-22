@@ -8,7 +8,16 @@ const FileSchema = new Schema(
     author_name: { type: String, required: true },
     author_email: { type: String, required: true },
     course_name: { type: String, required: true },
-    content: { type: String, required: true },
+    content: {
+      fieldname: { type: String },
+      originalname: { type: String },
+      encoding: { type: String },
+      mimetype: { type: String },
+      destination: { type: String },
+      filename: { type: String },
+      path: { type: String },
+      size: { type: Number },
+    },
   },
   { timestamps: true }
 );

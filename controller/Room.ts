@@ -1,6 +1,10 @@
 import { validationResult } from "express-validator";
 import RoomModel from "../model/RoomModel";
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+import dotenv from "dotenv";
+
+dotenv.config();
 
 // SAVE
 const SaveRoom = async (req: any, res: any) => {
@@ -45,9 +49,15 @@ const EnterRoom = async (req: any, res: any) => {
     } else {
       let hash_pass = await bcrypt.compare(req.body.room_code, check.password);
       if (hash_pass) {
-        res
-          .status(200)
-          .send({ msg: "Authentication successful", result: true });
+        const def_key =
+          process.env.JWT_STR ||
+          "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+        var token = jwt.sign({ user: req.body.room_id }, def_key);
+        res.status(200).send({
+          msg: "Authentication successful",
+          result: true,
+          token: token,
+        });
       } else {
         res.status(401).send({ msg: "Wrong Credentials", result: false });
       }
