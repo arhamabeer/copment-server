@@ -3,11 +3,15 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import Config from "./config/config";
 import formData from "express-form-data";
+import dotenv from "dotenv";
+
 const os = require("os");
 // import router from "./router/main_route";
 
+dotenv.config();
+
 const server = express();
-const port = 5000;
+const port = process.env.PORT || 4000;
 
 // const options = {
 //   uploadDir: os.tmpdir(),
