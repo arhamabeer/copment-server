@@ -27,8 +27,8 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 
 server.use("/uploads", express.static("uploads"));
-
 Config(server);
+server.use("/", (req, res) => res.status(404).send("Not Found"));
 
 // server.use("/", router);
 
