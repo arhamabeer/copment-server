@@ -5,7 +5,8 @@
   "license": "MIT",
 
   "scripts": {
-    "start": "tsc && node ./dist/index.js",
+    "build": "tsc",
+    "start": "node ./dist/index.js",
     "dev": "concurrently \"tsc --watch\" \"nodemon ./dist/index.js\""
   },
   "dependencies": {
